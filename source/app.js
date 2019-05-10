@@ -1,12 +1,21 @@
 console.log("app.js is running");
 
+
+var app = {
+	title: "Indecision App",
+	subtitle: "I can't decide!"
+}
+
 var template = (
 	<div>
-		<h1>Indecision App</h1>
-		<p>This is some info</p>
-		<p>It seems to like parenthesis!</p>
+		<h1>{app.title}</h1>
+		<p>{app.subtitle}</p>
 	</div>
 );
+
+var getLocation = ((location) => {
+	if (location) return <p>Location: {location}</p>;
+});
 
 var user = {
 	name :'Jason',
@@ -21,7 +30,7 @@ var template2 = (
 	<div>
 		<h1>Name: {user.name + '!'}</h1>
 		<p>Age: {user.age}</p>
-		<p>Location: {user.location}</p>
+		{getLocation(user.location)}
 	</div>
 );
 

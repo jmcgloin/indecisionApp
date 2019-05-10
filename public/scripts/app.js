@@ -1,26 +1,35 @@
-'use strict';
+"use strict";
 
 console.log("app.js is running");
 
+var app = {
+	title: "Indecision App",
+	subtitle: "I can't decide!"
+};
+
 var template = React.createElement(
-	'div',
+	"div",
 	null,
 	React.createElement(
-		'h1',
+		"h1",
 		null,
-		'Indecision App'
+		app.title
 	),
 	React.createElement(
-		'p',
+		"p",
 		null,
-		'This is some info'
-	),
-	React.createElement(
-		'p',
-		null,
-		'It seems to like parenthesis!'
+		app.subtitle
 	)
 );
+
+var getLocation = function getLocation(location) {
+	if (location) return React.createElement(
+		"p",
+		null,
+		"Location: ",
+		location
+	);
+};
 
 var user = {
 	name: 'Jason',
@@ -31,26 +40,21 @@ var user = {
 	// var userlocation = 'Akron, OH';
 
 };var template2 = React.createElement(
-	'div',
+	"div",
 	null,
 	React.createElement(
-		'h1',
+		"h1",
 		null,
-		'Name: ',
+		"Name: ",
 		user.name + '!'
 	),
 	React.createElement(
-		'p',
+		"p",
 		null,
-		'Age: ',
+		"Age: ",
 		user.age
 	),
-	React.createElement(
-		'p',
-		null,
-		'Location: ',
-		user.location
-	)
+	getLocation(user.location)
 );
 
 var appRoot = document.getElementById('app');
