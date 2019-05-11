@@ -6,13 +6,9 @@ var app = {
 	title: "Indecision App"
 	// subtitle: "I can't decide!",
 	// options: ["One", "Two"]
+};
 
-
-	// var options = ((arr) => {
-	// 	return arr.length > 0 ? <p>Here are your options</p> : undefined
-	// })
-
-};var template = React.createElement(
+var template = React.createElement(
 	"div",
 	null,
 	React.createElement(
@@ -84,3 +80,5 @@ var user = {
 var appRoot = document.getElementById('app');
 
 ReactDOM.render(template, appRoot);
+
+// babel source/app.js --out-file=public/scripts/app.js --presets=env,react --watch

@@ -1,17 +1,13 @@
 console.log("app.js is running");
 
 
-var app = {
+const app = {
 	title: "Indecision App",
 	// subtitle: "I can't decide!",
 	// options: ["One", "Two"]
 }
 
-// var options = ((arr) => {
-// 	return arr.length > 0 ? <p>Here are your options</p> : undefined
-// })
-
-var template = (
+const template = (
 	<div>
 		<h1>{app.title}</h1>
 		{app.subtitle && <p>{app.subtitle}</p>}
@@ -23,11 +19,11 @@ var template = (
 	</div>
 );
 
-var getLocation = ((location) => {
+const getLocation = (location) => {
 	if (location) return <p>Location: {location}</p>;
-});
+};
 
-var user = {
+const user = {
 	name: 'Jason McGloin',
 	age: 2,
 	location: 'Akron, OH'
@@ -36,7 +32,7 @@ var user = {
 // var userage = 43;
 // var userlocation = 'Akron, OH';
 
-var template2 = (
+const template2 = (
 	<div>
 		<h1>Name: {user.name ? user.name : "Anonymous"}</h1>
 		{(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
@@ -44,6 +40,8 @@ var template2 = (
 	</div>
 );
 
-var appRoot = document.getElementById('app');
+const appRoot = document.getElementById('app');
 
 ReactDOM.render(template, appRoot)
+
+// babel source/app.js --out-file=public/scripts/app.js --presets=env,react --watch
