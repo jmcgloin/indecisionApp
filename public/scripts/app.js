@@ -3,11 +3,16 @@
 console.log("app.js is running");
 
 var app = {
-	title: "Indecision App",
-	subtitle: "I can't decide!"
-};
+	title: "Indecision App"
+	// subtitle: "I can't decide!",
+	// options: ["One", "Two"]
 
-var template = React.createElement(
+
+	// var options = ((arr) => {
+	// 	return arr.length > 0 ? <p>Here are your options</p> : undefined
+	// })
+
+};var template = React.createElement(
 	"div",
 	null,
 	React.createElement(
@@ -15,10 +20,29 @@ var template = React.createElement(
 		null,
 		app.title
 	),
-	React.createElement(
+	app.subtitle && React.createElement(
 		"p",
 		null,
 		app.subtitle
+	),
+	React.createElement(
+		"p",
+		null,
+		app.options && app.options.length > 0 ? "Here are your options" : "There are no options"
+	),
+	React.createElement(
+		"ol",
+		null,
+		React.createElement(
+			"li",
+			null,
+			app.options && app.options[0]
+		),
+		React.createElement(
+			"li",
+			null,
+			app.options && app.options[1]
+		)
 	)
 );
 
@@ -32,8 +56,8 @@ var getLocation = function getLocation(location) {
 };
 
 var user = {
-	name: 'Jason',
-	age: 42,
+	name: 'Jason McGloin',
+	age: 2,
 	location: 'Akron, OH'
 	// var username = 'Jason';
 	// var userage = 43;
@@ -46,9 +70,9 @@ var user = {
 		"h1",
 		null,
 		"Name: ",
-		user.name + '!'
+		user.name ? user.name : "Anonymous"
 	),
-	React.createElement(
+	user.age && user.age >= 18 && React.createElement(
 		"p",
 		null,
 		"Age: ",
@@ -59,4 +83,4 @@ var user = {
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(template2, appRoot);
+ReactDOM.render(template, appRoot);

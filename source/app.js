@@ -3,13 +3,23 @@ console.log("app.js is running");
 
 var app = {
 	title: "Indecision App",
-	subtitle: "I can't decide!"
+	// subtitle: "I can't decide!",
+	// options: ["One", "Two"]
 }
+
+// var options = ((arr) => {
+// 	return arr.length > 0 ? <p>Here are your options</p> : undefined
+// })
 
 var template = (
 	<div>
 		<h1>{app.title}</h1>
-		<p>{app.subtitle}</p>
+		{app.subtitle && <p>{app.subtitle}</p>}
+		<p>{(app.options && app.options.length > 0) ? "Here are your options" : "There are no options"}</p>
+		<ol>
+			<li>{app.options && app.options[0]}</li>
+			<li>{app.options && app.options[1]}</li>
+		</ol>
 	</div>
 );
 
@@ -18,8 +28,8 @@ var getLocation = ((location) => {
 });
 
 var user = {
-	name :'Jason',
-	age: 42,
+	name: 'Jason McGloin',
+	age: 2,
 	location: 'Akron, OH'
 }
 // var username = 'Jason';
@@ -28,12 +38,12 @@ var user = {
 
 var template2 = (
 	<div>
-		<h1>Name: {user.name + '!'}</h1>
-		<p>Age: {user.age}</p>
+		<h1>Name: {user.name ? user.name : "Anonymous"}</h1>
+		{(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
 		{getLocation(user.location)}
 	</div>
 );
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(template2, appRoot)
+ReactDOM.render(template, appRoot)
