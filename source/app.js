@@ -4,7 +4,8 @@ console.log("app.js is running");
 const app = {
 	title: "Indecision App",
 	subtitle: "I can't decide!",
-	ideas: []
+	ideas: [],
+	chosen: ""
 }
 
 const onFormSubmit = (e) => {
@@ -12,11 +13,22 @@ const onFormSubmit = (e) => {
 	const idea = e.target.elements.idea.value;
 	idea.trim() && app.ideas.push(idea);
 	e.target.elements.idea.value = "";
+	app.chosen = "";
+	// document.getElementById("decisionBtn").disabled = false;
 	renderIndApp();
 }
 
 const onRemoveAll = () => {
 	app.ideas.length = 0;
+	app.chosen = "";
+	// document.getElementById("decisionBtn").disabled = true;
+	renderIndApp();
+}
+
+const onMakeDecision = () => {
+	let number = Math.floor(Math.random() * app.ideas.length);
+	app.chosen = app.ideas[number];
+	console.log("decided");
 	renderIndApp();
 }
 
@@ -28,11 +40,11 @@ const renderIndApp = () =>  {
 			<h1>{app.title}</h1>
 			{app.subtitle && <p>{app.subtitle}</p>}
 			<p>{(app.ideas && app.ideas.length > 0) ? "Here are your ideas" : "There are no ideas"}</p>
-			<p>{app.ideas.length}</p>
+			<button id="decisionBtn" onClick={onMakeDecision} disabled={!app.ideas.length}>Decide</button>
+			{app.chosen && <p>Your choice is: {app.chosen}</p>}
 			<button onClick={onRemoveAll}>Remove All</button>
 			<ol>
-				<li>Idea 1</li>
-				<li>Idea 2</li>
+				{app.ideas.map( (idea, ind) => <li key={"idea" + ind} id={"idea" + ind} >{idea}</li>)}
 			</ol>
 			<form onSubmit={onFormSubmit}>
 				<label htmlFor="idea" name="idea">Enter your idea here: </label>
@@ -43,10 +55,11 @@ const renderIndApp = () =>  {
 	);
 
 	ReactDOM.render(template, appRoot);
-
 };
 
 renderIndApp();
+
+// document.getElementById("decisionBtn").disabled = true;
 
 // let count = 0;
 // const increment = () => {

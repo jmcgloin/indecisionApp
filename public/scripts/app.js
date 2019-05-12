@@ -5,7 +5,8 @@ console.log("app.js is running");
 var app = {
 	title: "Indecision App",
 	subtitle: "I can't decide!",
-	ideas: []
+	ideas: [],
+	chosen: ""
 };
 
 var onFormSubmit = function onFormSubmit(e) {
@@ -13,11 +14,22 @@ var onFormSubmit = function onFormSubmit(e) {
 	var idea = e.target.elements.idea.value;
 	idea.trim() && app.ideas.push(idea);
 	e.target.elements.idea.value = "";
+	app.chosen = "";
+	// document.getElementById("decisionBtn").disabled = false;
 	renderIndApp();
 };
 
 var onRemoveAll = function onRemoveAll() {
 	app.ideas.length = 0;
+	app.chosen = "";
+	// document.getElementById("decisionBtn").disabled = true;
+	renderIndApp();
+};
+
+var onMakeDecision = function onMakeDecision() {
+	var number = Math.floor(Math.random() * app.ideas.length);
+	app.chosen = app.ideas[number];
+	console.log("decided");
 	renderIndApp();
 };
 
@@ -43,9 +55,15 @@ var renderIndApp = function renderIndApp() {
 			app.ideas && app.ideas.length > 0 ? "Here are your ideas" : "There are no ideas"
 		),
 		React.createElement(
+			"button",
+			{ id: "decisionBtn", onClick: onMakeDecision, disabled: !app.ideas.length },
+			"Decide"
+		),
+		app.chosen && React.createElement(
 			"p",
 			null,
-			app.ideas.length
+			"Your choice is: ",
+			app.chosen
 		),
 		React.createElement(
 			"button",
@@ -55,16 +73,13 @@ var renderIndApp = function renderIndApp() {
 		React.createElement(
 			"ol",
 			null,
-			React.createElement(
-				"li",
-				null,
-				"Idea 1"
-			),
-			React.createElement(
-				"li",
-				null,
-				"Idea 2"
-			)
+			app.ideas.map(function (idea, ind) {
+				return React.createElement(
+					"li",
+					{ key: "idea" + ind, id: "idea" + ind },
+					idea
+				);
+			})
 		),
 		React.createElement(
 			"form",
@@ -87,6 +102,8 @@ var renderIndApp = function renderIndApp() {
 };
 
 renderIndApp();
+
+// document.getElementById("decisionBtn").disabled = true;
 
 // let count = 0;
 // const increment = () => {
