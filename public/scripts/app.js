@@ -180,15 +180,34 @@ var AddOption = function (_React$Component6) {
 	}
 
 	_createClass(AddOption, [{
+		key: "handleOnSubmit",
+		value: function handleOnSubmit(e) {
+			e.preventDefault();
+			var newOption = e.target.elements.newOption;
+			var newOptionValue = newOption.value.trim();
+			if (newOptionValue != "") console.log(newOptionValue);
+			newOption.value = "";
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(
-					"p",
-					null,
-					"Form here"
+					"form",
+					{ onSubmit: this.handleOnSubmit },
+					React.createElement(
+						"label",
+						{ htmlFor: "newOption" },
+						"New Option: "
+					),
+					React.createElement("input", { type: "text", id: "newOption", name: "newOption" }),
+					React.createElement(
+						"button",
+						{ type: "submit" },
+						"Submit"
+					)
 				)
 			);
 		}
