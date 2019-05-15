@@ -1,97 +1,86 @@
-console.log("app.js is running");
-
-
-const app = {
-	title: "Indecision App",
-	subtitle: "I can't decide!",
-	ideas: [],
-	chosen: ""
+class IndecisionApp extends React.Component {
+	render() {
+		const title = "Indecision App";
+		const subtitle = "Put your life in the hands of a computer";
+		const options = ["Thing 1", "Thing 2",  "Thing 4"];
+		return (
+			<div>
+				<Header title={title} subtitle={subtitle} />
+				<Action />
+				<Options options={options} />
+				<AddOption />
+			</div>
+		);
+	}
 }
 
-const onFormSubmit = (e) => {
-	e.preventDefault();
-	const idea = e.target.elements.idea.value;
-	idea.trim() && app.ideas.push(idea);
-	e.target.elements.idea.value = "";
-	app.chosen = "";
-	// document.getElementById("decisionBtn").disabled = false;
-	renderIndApp();
+class Header extends React.Component {
+	render() {
+		// console.log(this.props);
+		return (
+			<div>
+				<h1>{this.props.title}</h1>
+				<h2>{this.props.subtitle}</h2>
+				</div>
+		);
+	}
 }
 
-const onRemoveAll = () => {
-	app.ideas.length = 0;
-	app.chosen = "";
-	// document.getElementById("decisionBtn").disabled = true;
-	renderIndApp();
+class Action extends React.Component {
+	handleWhatToDo() {
+		console.log('this worked');
+	}
+	render() {
+		return (
+			<div>
+				<button onClick={this.handleWhatToDo}>What should I do?</button>
+			</div>
+		);
+	}
 }
 
-const onMakeDecision = () => {
-	let number = Math.floor(Math.random() * app.ideas.length);
-	app.chosen = app.ideas[number];
-	console.log("decided");
-	renderIndApp();
+class Options extends React.Component {
+	handleRemoveAll() {
+		console.log("removed all");
+	}
+	render() {
+		let options = this.props.options;
+		return (
+			<div>
+				<button onClick={this.handleRemoveAll}>Remove All</button>
+				<p>Options here</p>
+				{options.map( (option, i) => <Option key={'option' + i} option={option} />)}
+			</div>
+		);
+	}
 }
 
-const appRoot = document.getElementById('app');
+class Option extends React.Component {
+	render() {
+		return (
+			<div>
+				<p>{this.props.option }</p>
+			</div>
+		);
+	}
+}
 
-const renderIndApp = () =>  {
-	const template = (
-		<div>
-			<h1>{app.title}</h1>
-			{app.subtitle && <p>{app.subtitle}</p>}
-			<p>{(app.ideas && app.ideas.length > 0) ? "Here are your ideas" : "There are no ideas"}</p>
-			<button id="decisionBtn" onClick={onMakeDecision} disabled={!app.ideas.length}>Decide</button>
-			{app.chosen && <p>Your choice is: {app.chosen}</p>}
-			<button onClick={onRemoveAll}>Remove All</button>
-			<ol>
-				{app.ideas.map( (idea, ind) => <li key={"idea" + ind} id={"idea" + ind} >{idea}</li>)}
-			</ol>
-			<form onSubmit={onFormSubmit}>
-				<label htmlFor="idea" name="idea">Enter your idea here: </label>
-				<input type="text" name="idea" id="idea" />
-				<button>Add Idea</button>
-			</form>
-		</div>
-	);
+class AddOption extends React.Component {
+	render() {
+		return (
+			<div>
+				<p>Form here</p>
+			</div>
+		);
+	}
+}
 
-	ReactDOM.render(template, appRoot);
-};
+const jsx = (
+	<div>
+		<IndecisionApp />
+	</div>
+)
 
-renderIndApp();
-
-// document.getElementById("decisionBtn").disabled = true;
-
-// let count = 0;
-// const increment = () => {
-// 	count++;
-// 	renderCounterApp();
-// }
-// const decrement = () => {
-// 	count--;
-// 	renderCounterApp();
-// }
-// const reset = () => {
-// 	count = 0;
-// 	renderCounterApp();
-// }
-
-// const appRoot = document.getElementById('app');
-
-// const renderCounterApp = () => {
-// 	const  templateTwo = (
-// 		<div>
-// 			<h1>
-// 				Count: {count}
-// 			</h1>
-// 			<button onClick={increment}>+1</button>
-// 			<button onClick={decrement}>-1</button>
-// 			<button onClick={reset}>Reset</button>
-// 		</div>
-// 	);
-
-// 	ReactDOM.render(templateTwo, appRoot);
-// }
-
-// renderCounterApp();
+ReactDOM.render(jsx, document.getElementById('app'));
 
 // babel source/app.js --out-file=public/scripts/app.js --presets=env,react --watch
